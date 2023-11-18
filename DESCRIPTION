@@ -1,11 +1,17 @@
 Package: hw3
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Multivariate Linear Regression 
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Author: Yeseul Ha
+Maintainer: The package maintainer <yeseulha@umich.edu>
+Description: The package hw3 creates a multivariate linear regression of one response variable and one or more covariates following linear regression assumptions: independence between the independent and dependent variables, noramlity and independence of residuals, independence of residuals error terms. It ouputs the beta estimates, the standard errors (SE), t-value, and the p-value from a two-tailed t-test statistics.
+License: GPL-2
 Encoding: UTF-8
 LazyData: true
+Imports: 
+    dplyr
+RoxygenNote: 7.2.3
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

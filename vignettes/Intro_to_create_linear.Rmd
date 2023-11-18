@@ -1,0 +1,84 @@
+---
+title: "Intro to create_linear"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Intro to create_linear}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(hw3)
+```
+
+## Introduction to create_linear function
+
+To use the function 'create_linear' for 1 continuous response and 1 continuous covariate linear regression model with an intercept using mtcars package:
+
+```{r}
+# response: mtcars$mpg 
+# covariate: mtcars$wt
+result1<-create_linear(response=mtcars$mpg, covariates=data.frame(wt=mtcars$wt), df=mtcars, intercept=1)
+
+result1
+```
+```{r}
+intercept1 <- result1$estimates[1]
+slope1 <- result1$estimates[2]
+plot(mtcars$mpg, mtcars$wt)
+abline(a = intercept1, b = slope1, col = "red")
+```
+
+## To use the function 'create_linear' for 1 continuous response and 2 continous covariates linear regression model with an intercept using mtcars package:
+```{r}
+# response: mtcars$mpg 
+# covariate: mtcars$wt and mtcars$cyl
+result2<-create_linear(response=mtcars$mpg, covariates=data.frame(wt=mtcars$wt, cyl=mtcars$cyl), df=mtcars, intercept=1)
+
+result2
+```
+
+## To use the function 'create_linear' for 1  of  continuous response and 3 continuous covariate linear regression model with no intercept using mtcars package:
+```{r}
+# response: mtcars$mpg
+# covariate: mtcars$wt,  mtcars$cyl, mtcars$am
+result3<- create_linear(response= (mtcars$mpg), covariates=data.frame(wt=mtcars$wt, cyl=mtcars$cyl, am=mtcars$am), df=mtcars, intercept=0)
+result3
+```
+
+## Actual Code and Comparison
+```{r}
+#First Example
+example1<- lm(formula = mpg ~ wt, data = mtcars)
+ex1<-summary(example1)$coeff
+ex1
+#Second Example
+example2<- lm(formula = mpg ~ wt+cyl, data = mtcars)
+ex2<-summary(example2)$coeff
+ex2
+#Third Example
+example3<- lm(formula = mpg ~ 0 + wt+cyl+am, data = mtcars)
+ex3<-summary(example3)$coeff
+ex3
+```
+
+As seen above, the estimates, SE, t-value, p-value from create_linear are very similar to the true lm function. But there are is rounding difference for different estimates.
+
+## Potential Issues
+This model cannot handle factors unless it is converted to numerical levels separately and before inputing the covariates into the model. However, it will work on binary covariate as the indication functions are not necessary for binary covariates.
+
+```{r}
+#all.equal(result1, example1)
+
+library(bench)
+#bench::mark( custom = create_linear(response = mtcars$mpg, covariates = data.frame(wt = mtcars$wt), df = mtcars, intercept = 1),lm_model = lm(formula = mpg ~ wt, data = mtcars),iterations = 100)
+
+```
+Our test does not pass the all.equal and bench functions but it may be due to the length of our values. As you can see from the values, the values from the lm and create_linear are almost identical. However, create_linear may lose precision with very small values. 
