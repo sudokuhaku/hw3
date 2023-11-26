@@ -22,6 +22,8 @@ The code below is the default.
 #SLR simple linear regression.
 #intercept=1 means intercept model.
 #Therefore, will display 2 parameters.
+
+
 create_linear(response=mtcars$mpg,
   covariates=data.frame(wt=mtcars$wt, drat=mtcars$drat),
   df=mtcars,
