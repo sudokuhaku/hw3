@@ -1,6 +1,6 @@
 # hw3
 ## Overview
-hw3 is a package that contains that can help to calculate a linear regression estimates, standard error (se), t-vlaues, and p-vlaues that allows for quick regression calculation. 
+hw3 is a package that can help to calculate a linear regression estimates, standard error (se), t-vlaues, and p-vlaues that allows for quick regression calculation. 
 Model: Y = β0 + β1x + ε and follows linear regression assumptions: linearity, independence of errors, normality of errors, and equal variances. The model follows Ordinary Least Squares regression (OLS) to solve for the estimates.
 There is no need to call summary or additional function as it will immediately display the outputs in a dataframe. The model allows for intercept or no intercept model. 
 * ```create_linear``` calculates the linear regression estimates, standard error (se), t-vlaues, and p-vlaues in a nice dataframe format
